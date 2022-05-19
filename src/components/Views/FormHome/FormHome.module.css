@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  margin-top: 8%;
+  margin-left: 400px;
+  position: absolute;
+}
+
+.formulario {
+  color: white;
+}
+
+.button {
+  border: 1px solid white;
+  font-weight: bold;
+}

@@ -16,11 +16,13 @@ function App() {
         <Route
           path='/'
           element={
-            !window.localStorage.getItem('token') ? (
-              <Navigate replace to='/registerorlogin' />
-            ) : (
-              <Home />
-            )
+            <>
+              {!window.localStorage.getItem('token') ? (
+                <Navigate to='/registerorlogin' />
+              ) : (
+                <Home />
+              )}
+            </>
           }
         />
       </Routes>

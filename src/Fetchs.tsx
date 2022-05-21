@@ -50,6 +50,21 @@ export const getPosts = async () => {
     method: 'GET',
   });
   const postsRes = await res.json();
-  console.log('posts?', postsRes);
+  console.log('posts?', postsRes[0]);
   return postsRes;
+};
+
+export const getPostsAllTime = async (fecha: string) => {
+  const url = import.meta.env.VITE_APP_URL;
+  let res = await fetch(`${url}` + '/posts/hay-nuevos-posts', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ fecha }),
+  });
+
+  const newPosts = await res.json();
+  console.log('postsNUEVO????', newPosts);
+  return newPosts;
 };

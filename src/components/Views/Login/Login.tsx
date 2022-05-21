@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
   const navigate = useNavigate();
+
   return (
     <>
       <div className={styles.contenedor}>
@@ -45,7 +46,9 @@ const Login = () => {
               resetForm();
               await login(valores);
               console.log('state?', valores);
-              window.localStorage.getItem('token') ? navigate('/') : null;
+              !window.localStorage.getItem('token') ? null : navigate('/');
+
+              console.log('token ?', window.localStorage.getItem('token'));
             }}
           >
             {({ errors }) => (

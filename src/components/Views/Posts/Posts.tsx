@@ -1,19 +1,36 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { getPosts } from '../../../Fetchs';
-import { IPosts, Context } from '../../../Interfaces';
+import { IPosts } from '../../../Interfaces';
 import styles from '../Posts/Posts.module.css';
 import Post from '../Post/Post';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
+import { getPostsAllTime } from '../../../Fetchs';
 
 const Posts = () => {
   const { posts, setPosts } = useContext(GlobalContext);
 
+  // const mergePosts = async () => {
+  //   const aux = await getPostsAllTime(posts[0].fecha);
+  //   setPosts([...aux, ...posts]);
+  // };
+
   useEffect(() => {
     const getAllPosts = async () => {
       setPosts(await getPosts());
-      console.log('postsenposts?', posts);
     };
     getAllPosts();
+    setInterval(() => {
+      if (posts.length > 0) {
+        getPostsAllTime(posts[0]?.fecha);
+      }
+    }, 1000);
+
+    const mergePosts = async () => {
+      const aux = await getPostsAllTime(posts[0].fecha);
+      setPosts([...aux, ...posts]);
+    };
+
+    mergePosts();
   }, []);
 
   return (

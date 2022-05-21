@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 // import { getPostsAllTime } from '../../../Fetchs';
 
 interface Props {
   nombre: string;
   contenido: string;
   fecha: string;
+  avatar: string;
 }
 
-const Post = ({ nombre, contenido, fecha }: Props) => {
+const Post = ({ avatar, nombre, contenido, fecha }: Props) => {
   const [time, setTime] = useState('');
 
   useEffect(() => {
@@ -38,10 +39,18 @@ const Post = ({ nombre, contenido, fecha }: Props) => {
   };
 
   return (
-    <div>
-      <p>{nombre}</p>
-      <p>{contenido}</p>
-      <p>{time}</p>
+    <div className="flex items-start text-white border border-slate-700 p-4 gap-2">
+      <div className="rounded-full border border-slate-500 relative w-10 h-10 overflow-hidden flex justify-center items-center shrink-0">
+        <img className="absolute object-cover" src={avatar} alt={nombre} />
+      </div>
+      <div className="flex shrink flex-col justify-center">
+        <div className="flex gap-1 text-slate-500 flex-wrap">
+          <p>{nombre}</p>
+          <span>-</span>
+          <p>{time}</p>
+        </div>
+        <p>{contenido}</p>
+      </div>
     </div>
   );
 };

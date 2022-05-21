@@ -45,6 +45,7 @@ const Posts = () => {
                 nombre={p.usuarioId.nombre}
                 contenido={p.contenido}
                 fecha={p.fecha}
+                avatar={p.usuarioId.avatar}
               />
             </div>
           );

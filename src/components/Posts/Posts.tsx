@@ -1,10 +1,9 @@
-import React, { useContext, useEffect } from 'react';
-import { getPosts } from '../../../Fetchs';
-import { IPosts } from '../../../Interfaces';
-import styles from '../Posts/Posts.module.css';
-import Post from '../Post/Post';
-import { GlobalContext } from '../../../GlobalContext/GlobalContext';
-import { getPostsAllTime } from '../../../Fetchs';
+import { useContext, useEffect } from 'react';
+import { getPosts } from '../../Fetchs';
+import { IPosts } from '../../Interfaces';
+import Post from '../../components/Post/Post';
+import { GlobalContext } from '../../GlobalContext/GlobalContext';
+import { getPostsAllTime } from '../../Fetchs';
 
 const Posts = () => {
   const { posts, setPosts } = useContext(GlobalContext);
@@ -34,7 +33,7 @@ const Posts = () => {
   }, []);
 
   return (
-    <div className={styles.posts}>
+    <div className="">
       {posts?.length > 0 ? (
         posts.map((p: IPosts) => {
           const user = p.usuarioId;

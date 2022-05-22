@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { tweetProps } from '../../../Interfaces';
-import { tweetPost, getPosts } from '../../../Fetchs';
-import { GlobalContext } from '../../../GlobalContext/GlobalContext';
+import { tweetProps } from '../../Interfaces';
+import { tweetPost, getPosts } from '../../Fetchs';
+import { GlobalContext } from '../../GlobalContext/GlobalContext';
 
 const FormHome = () => {
   const { posts, setPosts } = useContext(GlobalContext);

@@ -1,4 +1,3 @@
-import React from 'react';
 import FormHome from '../FormHome/FormHome';
 import Posts from '../Posts/Posts';
 

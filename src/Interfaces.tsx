@@ -23,6 +23,7 @@ export interface IPosts {
   contenido: string;
   fecha: string;
   _id: string;
+  avatar: string;
 }
 
 export interface Context {

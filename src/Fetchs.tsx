@@ -40,7 +40,6 @@ export const tweetPost = async (tweet: tweetProps) => {
     body: JSON.stringify(tweet),
   });
   const tweetRes = await res.json();
-  console.log('tweetres', tweetRes);
   return tweetRes;
 };
 
@@ -50,7 +49,6 @@ export const getPosts = async () => {
     method: 'GET',
   });
   const postsRes = await res.json();
-  console.log('posts?', postsRes[0]);
   return postsRes;
 };
 
@@ -65,6 +63,5 @@ export const getPostsAllTime = async (fecha: string) => {
   });
 
   const newPosts = await res.json();
-  console.log('postsNUEVO????', newPosts);
   return newPosts;
 };

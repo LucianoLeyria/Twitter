@@ -30,16 +30,20 @@ export const register = async (datosRegister: RegisterProps) => {
 };
 
 export const tweetPost = async (tweet: tweetProps) => {
+  let data = new FormData();
+  data.append('tweet', tweet.tweet);
+  data.append('image', document.getElementById('image').files[0]);
+
   const url = import.meta.env.VITE_APP_URL;
   let res = await fetch(`${url}` + '/posts', {
     method: 'POST',
     headers: {
       Authorization: 'Bearer ' + window.localStorage.getItem('token'),
-      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(tweet),
+    body: data,
   });
   const tweetRes = await res.json();
+  console.log('respuestatweetres', tweetRes);
   return tweetRes;
 };
 

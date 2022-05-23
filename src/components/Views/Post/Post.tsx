@@ -6,9 +6,10 @@ interface Props {
   contenido: string;
   fecha: string;
   avatar: string;
+  imagen: string;
 }
 
-const Post = ({ avatar, nombre, contenido, fecha }: Props) => {
+const Post = ({ avatar, nombre, contenido, fecha, imagen }: Props) => {
   const [time, setTime] = useState('');
 
   useEffect(() => {
@@ -39,17 +40,20 @@ const Post = ({ avatar, nombre, contenido, fecha }: Props) => {
   };
 
   return (
-    <div className="flex items-start text-white border border-slate-700 p-4 gap-2">
-      <div className="rounded-full border border-slate-500 relative w-10 h-10 overflow-hidden flex justify-center items-center shrink-0">
-        <img className="absolute object-cover" src={avatar} alt={nombre} />
+    <div className='flex items-start text-white border border-slate-700 p-4 gap-2'>
+      <div className='rounded-full border border-slate-500 relative w-10 h-10 overflow-hidden flex justify-center items-center shrink-0'>
+        <img className='absolute object-cover' src={avatar} alt={nombre} />
       </div>
-      <div className="flex shrink flex-col justify-center">
-        <div className="flex gap-1 text-slate-500 flex-wrap">
+      <div className='flex shrink flex-col justify-center'>
+        <div className='flex gap-1 text-slate-500 flex-wrap'>
           <p>{nombre}</p>
           <span>-</span>
           <p>{time}</p>
         </div>
         <p>{contenido}</p>
+        {imagen ? (
+          <img src={import.meta.env.VITE_APP_URL + imagen}></img>
+        ) : null}
       </div>
     </div>
   );

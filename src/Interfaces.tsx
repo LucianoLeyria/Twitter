@@ -10,7 +10,8 @@ export interface RegisterProps {
 }
 
 export interface tweetProps {
-  tweet?: string;
+  tweet: string;
+  image: string;
 }
 
 export interface Usuario {
@@ -24,6 +25,7 @@ export interface IPosts {
   fecha: string;
   _id: string;
   avatar: string;
+  imagen: string;
 }
 
 export interface Context {

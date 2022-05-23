@@ -4,7 +4,8 @@ import App from './App';
 import './index.css';
 import { ContextProvider } from './GlobalContext/GlobalContext';
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+const root = ReactDOM.createRoot(document.getElementById('root')!);
+root.render(
   <ContextProvider>
     <React.StrictMode>
       <App />

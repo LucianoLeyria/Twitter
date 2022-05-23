@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { RegisterProps } from '../../../Interfaces';
-import { register } from '../../../Fetchs';
-import styles from './Register.module.css';
+import { RegisterProps } from '../../Interfaces';
+import { register } from '../../Fetchs';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
@@ -10,8 +9,8 @@ const Register = () => {
   const navigate = useNavigate();
   return (
     <>
-      <div className={styles.contenedor}>
-        <div className={styles.formulario}>
+      <div className="">
+        <div className="">
           <Formik
             initialValues={{
               username: '',
@@ -62,55 +61,55 @@ const Register = () => {
             }}
           >
             {({ errors }) => (
-              <Form className='formulario'>
+              <Form className="">
                 <div>
-                  <label htmlFor='username'>Username</label>
+                  <label htmlFor="username">Username</label>
                   <Field
-                    type='text'
-                    id='username'
-                    name='username'
-                    placeholder='John Doe'
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="John Doe"
                   />
                   <ErrorMessage
-                    name='username'
+                    name="username"
                     component={() => (
-                      <div className='error'>{errors.username}</div>
+                      <div className="error">{errors.username}</div>
                     )}
                   />
                 </div>
                 <div>
-                  <label htmlFor='password'>Password</label>
+                  <label htmlFor="password">Password</label>
                   <Field
-                    type='text'
-                    id='password'
-                    name='password'
-                    placeholder='password'
+                    type="text"
+                    id="password"
+                    name="password"
+                    placeholder="password"
                   />
                   <ErrorMessage
-                    name='password'
+                    name="password"
                     component={() => (
-                      <div className='error'>{errors.password}</div>
+                      <div className="error">{errors.password}</div>
                     )}
                   />
                 </div>
                 <div>
-                  <label htmlFor='email'>Email</label>
+                  <label htmlFor="email">Email</label>
                   <Field
-                    type='text'
-                    id='email'
-                    name='email'
-                    placeholder='email@email.com'
+                    type="text"
+                    id="email"
+                    name="email"
+                    placeholder="email@email.com"
                   />
                   <ErrorMessage
-                    name='email'
+                    name="email"
                     component={() => (
-                      <div className='error'>{errors.email}</div>
+                      <div className="error">{errors.email}</div>
                     )}
                   />
                 </div>
-                <button type='submit'>Enviar</button>
+                <button type="submit">Enviar</button>
                 {formularioEnviado && (
-                  <p className='exito'>Formulario enviado con exito!</p>
+                  <p className="exito">Formulario enviado con exito!</p>
                 )}
               </Form>
             )}

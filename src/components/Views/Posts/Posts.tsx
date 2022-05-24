@@ -12,7 +12,6 @@ const Posts = () => {
     const getAllPosts = async () => {
       const newPosts = await getPosts();
       setPosts(newPosts);
-      console.log('NEWPOSTSLLEGA?', newPosts);
       setInterval(async () => {
         let aux2 = [];
         if (newPosts.length > 0) {
@@ -21,25 +20,12 @@ const Posts = () => {
         console.log('primero??', aux2);
         if (aux2.length > 0) {
           const allData = [...aux2, ...newPosts];
-          console.log(allData);
           setPosts(allData);
         }
       }, 5000);
     };
     getAllPosts();
   }, []);
-
-  // useEffect(() => {
-  //   setInterval(async () => {
-  //     const aux = await getPostsAllTime(posts[0]?.fecha);
-  //     console.log('primero??', aux);
-  //     if (aux.length > 0) {
-  //       const allData = [...aux, ...posts];
-  //       console.log(allData);
-  //       setPosts(allData);
-  //     }
-  //   }, 5000);
-  // });
 
   return (
     <div className={styles.posts}>
@@ -54,6 +40,7 @@ const Posts = () => {
                 fecha={p.fecha}
                 avatar={p.usuarioId.avatar}
                 imagen={p.imagen}
+                id={p._id}
               />
             </div>
           );

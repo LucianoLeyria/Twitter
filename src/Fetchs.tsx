@@ -1,4 +1,4 @@
-import { LoginProps, RegisterProps, tweetProps } from './Interfaces';
+import { LoginProps, RegisterProps, tweetProps, IPosts } from './Interfaces';
 
 export const login = async (datosLogin: LoginProps) => {
   const url = import.meta.env.VITE_APP_URL;
@@ -53,6 +53,7 @@ export const getPosts = async () => {
     method: 'GET',
   });
   const postsRes = await res.json();
+  console.log('id??', postsRes[0]._id);
   return postsRes;
 };
 
@@ -65,7 +66,61 @@ export const getPostsAllTime = async (fecha: string) => {
     },
     body: JSON.stringify({ fecha }),
   });
-
   const newPosts = await res.json();
   return newPosts;
+};
+
+export const postFavorites = async (id: string) => {
+  const url = import.meta.env.VITE_APP_URL;
+  let res = await fetch(`${url}` + '/favs', {
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer ' + window.localStorage.getItem('token'),
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ postId: id }),
+  });
+  const newFavs = await res.json();
+  return newFavs;
+};
+
+export const getFavorites = async (id: string) => {
+  const url = import.meta.env.VITE_APP_URL;
+  let res = await fetch(`${url}` + '/favs/' + id, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const getFavs = await res.json();
+  console.log('getfavs', getFavs);
+  return getFavs;
+};
+
+export const dioLike = async (id: string) => {
+  const url = import.meta.env.VITE_APP_URL;
+  let res = await fetch(`${url}` + '/favs/liked/' + id, {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + window.localStorage.getItem('token'),
+      'Content-Type': 'application/json',
+    },
+  });
+  const dioLike = await res.json();
+  console.log('diolike?????', dioLike);
+  return dioLike;
+};
+
+export const deleteFav = async (id: string) => {
+  const url = import.meta.env.VITE_APP_URL;
+  let res = await fetch(`${url}` + '/favs/dislike/' + id, {
+    method: 'DELETE',
+    headers: {
+      Authorization: 'Bearer ' + window.localStorage.getItem('token'),
+      'Content-Type': 'application/json',
+    },
+  });
+  const deleteFav = await res.json();
+  console.log('dislikeo ????????', deleteFav);
+  return deleteFav;
 };

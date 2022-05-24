@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react';
-// import { getPostsAllTime } from '../../../Fetchs';
+import styles from '../Post/Post.module.css';
+import {
+  postFavorites,
+  getFavorites,
+  dioLike,
+  deleteFav,
+} from '../../../Fetchs';
 
 interface Props {
   nombre: string;
@@ -7,21 +13,40 @@ interface Props {
   fecha: string;
   avatar: string;
   imagen: string;
+  id: string;
 }
 
-const Post = ({ avatar, nombre, contenido, fecha, imagen }: Props) => {
+const Post = ({ avatar, nombre, contenido, fecha, imagen, id }: Props) => {
   const [time, setTime] = useState('');
+  const [favs, setFavs] = useState({ cantidadLikes: 0 });
 
   useEffect(() => {
     const interval = setInterval(() => {
-      // getPostsAllTime();
       actualizarTime();
     }, 1000);
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const getFavs = async () => {
+      setFavs(await getFavorites(id));
+    };
+    getFavs();
+  }, []);
+
   const actualizarTime = () => {
     setTime(showOneProp());
+  };
+
+  const handleSubmit = async () => {
+    const diolike = await dioLike(id);
+    if (!diolike.liked) {
+      await postFavorites(id);
+    } else {
+      await deleteFav(id);
+    }
+    setFavs(await getFavorites(id));
+    console.log('favorito', id);
   };
 
   const showOneProp = () => {
@@ -54,6 +79,9 @@ const Post = ({ avatar, nombre, contenido, fecha, imagen }: Props) => {
         {imagen ? (
           <img src={import.meta.env.VITE_APP_URL + imagen}></img>
         ) : null}
+        <button onClick={handleSubmit} className={styles.buttonFav}>
+          ❤ {favs.cantidadLikes}
+        </button>
       </div>
     </div>
   );

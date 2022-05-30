@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { LoginProps, RegisterProps } from '../../../Interfaces';
 import { login } from '../../../Fetchs';
@@ -8,6 +8,10 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.localStorage.getItem('token') ? navigate('/') : null;
+  });
 
   return (
     <>
@@ -47,7 +51,6 @@ const Login = () => {
               await login(valores);
               console.log('state?', valores);
               !window.localStorage.getItem('token') ? null : navigate('/');
-
               console.log('token ?', window.localStorage.getItem('token'));
             }}
           >

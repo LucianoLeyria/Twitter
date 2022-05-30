@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import styles from '../Post/Post.module.css';
 import {
   postFavorites,
@@ -14,11 +14,22 @@ interface Props {
   avatar: string;
   imagen: string;
   id: string;
+  like: number;
 }
 
-const Post = ({ avatar, nombre, contenido, fecha, imagen, id }: Props) => {
+const Post = ({
+  avatar,
+  nombre,
+  contenido,
+  fecha,
+  imagen,
+  id,
+  like,
+}: Props) => {
   const [time, setTime] = useState('');
-  const [favs, setFavs] = useState({ cantidadLikes: 0 });
+  const [likes, setLikes] = useState(0);
+  const [favs, setFavs] = useState({ cantidadLikes: like });
+  const [isFav, setIsFav] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -39,12 +50,15 @@ const Post = ({ avatar, nombre, contenido, fecha, imagen, id }: Props) => {
   };
 
   const handleSubmit = async () => {
+    setIsFav(true);
+    setFavs({ cantidadLikes: favs.cantidadLikes + likes });
     const diolike = await dioLike(id);
     if (!diolike.liked) {
       await postFavorites(id);
     } else {
       await deleteFav(id);
     }
+    setIsFav(false);
     setFavs(await getFavorites(id));
     console.log('favorito', id);
   };
@@ -67,7 +81,11 @@ const Post = ({ avatar, nombre, contenido, fecha, imagen, id }: Props) => {
   return (
     <div className='flex items-start text-white border border-slate-700 p-4 gap-2'>
       <div className='rounded-full border border-slate-500 relative w-10 h-10 overflow-hidden flex justify-center items-center shrink-0'>
-        <img className='absolute object-cover' src={avatar} alt={nombre} />
+        <img
+          className='absolute object-cover'
+          src={import.meta.env.VITE_APP_URL + avatar}
+          alt={nombre}
+        />
       </div>
       <div className='flex shrink flex-col justify-center'>
         <div className='flex gap-1 text-slate-500 flex-wrap'>
@@ -79,7 +97,11 @@ const Post = ({ avatar, nombre, contenido, fecha, imagen, id }: Props) => {
         {imagen ? (
           <img src={import.meta.env.VITE_APP_URL + imagen}></img>
         ) : null}
-        <button onClick={handleSubmit} className={styles.buttonFav}>
+        <button
+          disabled={isFav}
+          onClick={handleSubmit}
+          className={styles.buttonFav}
+        >
           ❤ {favs.cantidadLikes}
         </button>
       </div>

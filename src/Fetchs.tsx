@@ -43,7 +43,7 @@ export const tweetPost = async (tweet: tweetProps) => {
     body: data,
   });
   const tweetRes = await res.json();
-  console.log('respuestatweetres', tweetRes);
+  console.log('resp?????', tweetRes);
   return tweetRes;
 };
 
@@ -53,7 +53,6 @@ export const getPosts = async () => {
     method: 'GET',
   });
   const postsRes = await res.json();
-  console.log('id??', postsRes[0]._id);
   return postsRes;
 };
 
@@ -93,7 +92,6 @@ export const getFavorites = async (id: string) => {
     },
   });
   const getFavs = await res.json();
-  console.log('getfavs', getFavs);
   return getFavs;
 };
 
@@ -107,7 +105,6 @@ export const dioLike = async (id: string) => {
     },
   });
   const dioLike = await res.json();
-  console.log('diolike?????', dioLike);
   return dioLike;
 };
 
@@ -121,6 +118,55 @@ export const deleteFav = async (id: string) => {
     },
   });
   const deleteFav = await res.json();
-  console.log('dislikeo ????????', deleteFav);
   return deleteFav;
+};
+
+export const getFavsForUser = async () => {
+  const url = import.meta.env.VITE_APP_URL;
+  let res = await fetch(`${url}` + '/posts/favourites', {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + window.localStorage.getItem('token'),
+      'Content-Type': 'application/json',
+    },
+  });
+  const favForUser = await res.json();
+
+  return favForUser.sort((a: any, b: any) =>
+    b.post?.postId?.fecha > a.post?.postId?.fecha ? 1 : -1
+  );
+};
+
+export const getInfoProfile = async (id: string) => {
+  const url = import.meta.env.VITE_APP_URL;
+  let res = await fetch(`${url}` + '/users/' + id, {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + window.localStorage.getItem('token'),
+      'Content-Type': 'application/json',
+    },
+  });
+  const infoProfile = await res.json();
+  console.log('infoProfile ????????', infoProfile);
+  return infoProfile;
+};
+
+export const editProfile = async (profile: any) => {
+  let data = new FormData();
+  data.append('avatar', document.getElementById('avatar').files[0]);
+  data.append('portada', document.getElementById('portada').files[0]);
+  data.append('nombre', profile.nombre);
+  data.append('descripcion', profile.descripcion);
+  data.append('ubicacion', profile.ubicacion);
+  const url = import.meta.env.VITE_APP_URL;
+  let res = await fetch(`${url}` + '/users', {
+    method: 'PUT',
+    headers: {
+      Authorization: 'Bearer ' + window.localStorage.getItem('token'),
+    },
+    body: data,
+  });
+  const profileRes = await res.json();
+  console.log('resp?????', profileRes);
+  return profileRes;
 };

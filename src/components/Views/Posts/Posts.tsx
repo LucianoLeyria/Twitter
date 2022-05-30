@@ -4,6 +4,7 @@ import { IPosts } from '../../../Interfaces';
 import styles from '../Posts/Posts.module.css';
 import Post from '../Post/Post';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
+import Profile from '../Profile/Profile';
 
 const Posts = () => {
   const { posts, setPosts } = useContext(GlobalContext);
@@ -15,7 +16,7 @@ const Posts = () => {
       setInterval(async () => {
         let aux2 = [];
         if (newPosts.length > 0) {
-          aux2 = await getPostsAllTime(newPosts[0]?.fecha);
+          aux2 = await getPostsAllTime(newPosts[0]?.post.fecha);
         }
         console.log('primero??', aux2);
         if (aux2.length > 0) {
@@ -26,29 +27,31 @@ const Posts = () => {
     };
     getAllPosts();
   }, []);
-
+  console.log('postenposts', posts);
   return (
-    <div className={styles.posts}>
-      {posts?.length > 0 ? (
-        posts.map((p: IPosts) => {
-          const user = p.usuarioId;
-          return (
-            <div key={p._id}>
-              <Post
-                nombre={p.usuarioId.nombre}
-                contenido={p.contenido}
-                fecha={p.fecha}
-                avatar={p.usuarioId.avatar}
-                imagen={p.imagen}
-                id={p._id}
-              />
-            </div>
-          );
-        })
-      ) : (
-        <p>No se encuentran posts</p>
-      )}
-    </div>
+    <>
+      <div className={styles.posts}>
+        {posts?.length > 0 ? (
+          posts.map((p: { post: IPosts; cantidadLikes: number }) => {
+            return (
+              <div key={p?.post?._id}>
+                <Post
+                  nombre={p?.post?.usuarioId?.nombre}
+                  contenido={p?.post?.contenido}
+                  fecha={p?.post?.fecha}
+                  avatar={p?.post?.usuarioId?.avatar}
+                  imagen={p?.post?.imagen}
+                  id={p?.post?._id}
+                  like={p?.cantidadLikes}
+                />
+              </div>
+            );
+          })
+        ) : (
+          <p>No se encuentran posts</p>
+        )}
+      </div>
+    </>
   );
 };
 

@@ -6,8 +6,8 @@ export const GlobalContext = createContext<any>(null);
 export const ContextProvider = (props: any) => {
   const [posts, setPosts] = useState<Array<IPosts>>([]);
   const [favorites, setFavorites] = useState<Array<Favoritos>>([]);
-  const [user, setUser] = useState<any>({});
-  const [userId, setUserId] = useState<any>('');
+  const [user, setUser] = useState<any>(null);
+  const [userProfile, setUserProfile] = useState<any>('');
 
   ///funciones que modifican estados
 
@@ -21,8 +21,8 @@ export const ContextProvider = (props: any) => {
           setFavorites,
           user,
           setUser,
-          userId,
-          setUserId,
+          userProfile,
+          setUserProfile,
         }}
       >
         {props.children}

@@ -13,33 +13,30 @@ const Profile = () => {
   const [showButton, setShowButton] = useState(false);
   const [clicked, setClicked] = useState(false);
   const { username } = useParams();
-  const { user, setUser } = useContext(GlobalContext);
-  // const { userId, setUserId } = useContext(GlobalContext);
-  // const { decodedToken, isExpired } = useJwt<userToken>(
-  let token = window.localStorage.getItem('token') as string;
-  // );
+  const { user, setUser, userProfile, setUserProfile } =
+    useContext(GlobalContext);
 
-  // async function haveToken() {
-  //   setUserId(
-  //     await decodeToken(window.localStorage.getItem('token') as string)
-  //   );
-  // }
-
-  // getInfoProfile(id!).then(async (res) => {
-  //   await setUser(res);
-  // });
-  // console.log('user?', user);
+  async function haveToken() {
+    const decodedToken = await decodeToken(
+      window.localStorage.getItem('token') as string
+    );
+    setUser((decodedToken as any).nombre);
+  }
 
   useEffect(() => {
-    if (!user.nombre) {
-      getInfoProfile(username!).then((res: any) => {
-        console.log('info en profile? ', res);
-        setUser(res);
-      });
-      console.log('userres', user);
-    }
-    return setUser({});
+    haveToken();
+    getInfoProfile(username!).then((res: any) => {
+      console.log('user dentro de useeffect? ', res);
+      setUserProfile(res);
+    });
+    return setUserProfile({});
   }, []);
+
+  useEffect(() => {
+    if (user === username) {
+      setShowButton(true);
+    }
+  }, [username, user]);
 
   const handleClick = () => {
     setClicked((prev) => !prev);
@@ -54,11 +51,11 @@ const Profile = () => {
         Bienvenido! Este es tu perfil.
         {clicked ? (
           <Modal setClicked={setClicked}>
-            <EditProfile user={user} />
+            <EditProfile user={userProfile} />
           </Modal>
         ) : null}
-        <img src={`${url}${user?.avatar}`} />
-        <p>{user?.nombre}</p>
+        <img src={`${url}${userProfile?.avatar}`} />
+        <p>{userProfile?.nombre}</p>
         {showButton && <button onClick={handleClick}>Editar perfil</button>}
       </div>
     </>

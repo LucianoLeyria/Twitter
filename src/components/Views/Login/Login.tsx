@@ -1,12 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { LoginProps, RegisterProps } from '../../../Interfaces';
 import { login } from '../../../Fetchs';
 import styles from '../Login/Login.module.css';
 import { useNavigate } from 'react-router-dom';
+import { decodeToken, useJwt } from 'react-jwt';
+import { userToken } from '../../../Interfaces';
+import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 
 const Login = () => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
+  const { setUser } = useContext(GlobalContext);
   const navigate = useNavigate();
 
   useEffect(() => {

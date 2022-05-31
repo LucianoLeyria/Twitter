@@ -44,4 +44,5 @@ export interface Favoritos {
 export interface userToken {
   sub: string;
   iat: number;
+  nombre: string;
 }

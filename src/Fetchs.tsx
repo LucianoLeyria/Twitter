@@ -137,9 +137,9 @@ export const getFavsForUser = async () => {
   );
 };
 
-export const getInfoProfile = async (id: string) => {
+export const getInfoProfile = async (nombre: string) => {
   const url = import.meta.env.VITE_APP_URL;
-  let res = await fetch(`${url}` + '/users/' + id, {
+  let res = await fetch(`${url}` + '/users/nombre/' + nombre, {
     method: 'GET',
     headers: {
       Authorization: 'Bearer ' + window.localStorage.getItem('token'),

@@ -7,6 +7,7 @@ export const ContextProvider = (props: any) => {
   const [posts, setPosts] = useState<Array<IPosts>>([]);
   const [favorites, setFavorites] = useState<Array<Favoritos>>([]);
   const [user, setUser] = useState<any>({});
+  const [userId, setUserId] = useState<any>('');
 
   ///funciones que modifican estados
 
@@ -20,6 +21,8 @@ export const ContextProvider = (props: any) => {
           setFavorites,
           user,
           setUser,
+          userId,
+          setUserId,
         }}
       >
         {props.children}

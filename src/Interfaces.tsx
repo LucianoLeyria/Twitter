@@ -10,13 +10,15 @@ export interface RegisterProps {
 }
 
 export interface tweetProps {
-  tweet?: string;
+  tweet: string;
+  image: string;
 }
 
 export interface Usuario {
   nombre: string;
   email: string;
   avatar: string;
+  _id: string;
 }
 export interface IPosts {
   usuarioId: Usuario;
@@ -24,9 +26,23 @@ export interface IPosts {
   fecha: string;
   _id: string;
   avatar: string;
+  imagen: string;
+  like: number;
 }
 
 export interface Context {
   posts: IPosts[];
   setPosts: Function;
+}
+
+export interface Favoritos {
+  usuarioId: Usuario;
+  postId: IPosts;
+  _id: string;
+}
+
+export interface userToken {
+  sub: string;
+  iat: number;
+  nombre: string;
 }

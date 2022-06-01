@@ -1,0 +1,10 @@
+.navs {
+  color: white;
+}
+
+.nav {
+  display: flex;
+  column-gap: 50px;
+  margin-left: 400px;
+  padding: 20px;
+}

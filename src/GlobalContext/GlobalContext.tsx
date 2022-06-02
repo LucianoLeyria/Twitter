@@ -8,6 +8,8 @@ export const ContextProvider = (props: any) => {
   const [favorites, setFavorites] = useState<Array<Favoritos>>([]);
   const [user, setUser] = useState<any>(null);
   const [userProfile, setUserProfile] = useState<any>('');
+  const [infoUser, setInfoUser] = useState<any>({});
+  const [loading, setLoading] = useState<boolean>(false);
 
   ///funciones que modifican estados
 
@@ -23,6 +25,10 @@ export const ContextProvider = (props: any) => {
           setUser,
           userProfile,
           setUserProfile,
+          infoUser,
+          setInfoUser,
+          loading,
+          setLoading,
         }}
       >
         {props.children}

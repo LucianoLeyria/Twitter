@@ -10,7 +10,8 @@ import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 
 const Login = () => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
-  const { setUser } = useContext(GlobalContext);
+  const { setUser, setInfoUser } = useContext(GlobalContext);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -52,7 +53,12 @@ const Login = () => {
             }}
             onSubmit={async (valores, { resetForm }) => {
               resetForm();
-              await login(valores);
+              const respuesta = await login(valores);
+              setInfoUser(respuesta.user);
+              window.localStorage.setItem(
+                'infoUser',
+                JSON.stringify(respuesta.user)
+              );
               console.log('state?', valores);
               !window.localStorage.getItem('token') ? null : navigate('/');
               console.log('token ?', window.localStorage.getItem('token'));

@@ -6,6 +6,7 @@ import Register from './components/Views/Register/Register';
 import Registerorlogin from './components/Views/Registerorlogin/Registerorlogin';
 import Favorites from './components/Views/Favorites/Favorites';
 import Profile from './components/Views/Profile/Profile';
+import Error from './components/Error/Error';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path='/registerorlogin' element={<Registerorlogin />} />
         <Route path='/favorites' element={<Favorites />} />
         <Route path='/profile/:username' element={<Profile />} />
+        <Route path='/error' element={<Error />} />
       </Routes>
     </BrowserRouter>
   );

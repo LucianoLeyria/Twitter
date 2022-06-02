@@ -4,6 +4,7 @@ import Navbar from '../../Navbar/Navbar';
 import FormHome from '../FormHome/FormHome';
 import Posts from '../Posts/Posts';
 import { useNavigate } from 'react-router-dom';
+import { IPosts } from '../../../Interfaces';
 
 export const Home = () => {
   const navigate = useNavigate();

@@ -4,13 +4,15 @@ import { IPosts } from '../../../Interfaces';
 import styles from '../Posts/Posts.module.css';
 import Post from '../Post/Post';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
-import Profile from '../Profile/Profile';
+
+import Loader from '../Loader/Loader';
 
 const Posts = () => {
-  const { posts, setPosts } = useContext(GlobalContext);
+  const { posts, setPosts, loading, setLoading } = useContext(GlobalContext);
 
   useEffect(() => {
     const getAllPosts = async () => {
+      console.log('algo', posts);
       const newPosts = await getPosts();
       setPosts(newPosts);
       setInterval(async () => {
@@ -23,11 +25,11 @@ const Posts = () => {
           const allData = [...aux2, ...newPosts];
           setPosts(allData);
         }
-      }, 5000);
+      }, 15000);
     };
     getAllPosts();
-  }, []);
-  console.log('postenposts', posts);
+  }, [loading]);
+
   return (
     <>
       <div className={styles.posts}>
@@ -48,7 +50,7 @@ const Posts = () => {
             );
           })
         ) : (
-          <p>No se encuentran posts</p>
+          <Loader />
         )}
       </div>
     </>

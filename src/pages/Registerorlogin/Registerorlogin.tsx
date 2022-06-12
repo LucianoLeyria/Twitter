@@ -1,11 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Login from '../../components/Login/Login';
-import Modal from '../../components/modal/Modal';
+import Modal from '../../components/Modal/Modal';
 import Register from '../../components/Register/Register';
 import logo from '../../img/rhino.svg';
 const Registerorlogin = () => {
   const [loginModal, setLoginModal] = useState(false);
   const [registerModal, setRegisterModal] = useState(false);
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    window.localStorage.getItem('token') ? navigate('/home') : null;
+  }, []);
 
   const handleClick = (e: any) => {
     switch (e.target.name) {

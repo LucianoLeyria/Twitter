@@ -1,12 +1,11 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { getInfoProfile } from '../../../Fetchs';
+import { useEffect, useState, useContext } from 'react';
+import { getInfoProfile } from '../../services/Fetchs';
 import { useParams } from 'react-router-dom';
-import styles from '../Profile/Profile.module.css';
-import Modal from '../../Modal/Modal';
-import EditProfile from '../../EditProfile/EditProfile';
-import Navbar from '../../Navbar/Navbar';
-import { GlobalContext } from '../../../GlobalContext/GlobalContext';
-import { useJwt, decodeToken } from 'react-jwt';
+import Modal from '../../components/Modal/Modal';
+import EditProfile from '../../components/EditProfile/EditProfile';
+import Navbar from '../../components/Navbar/Navbar';
+import { GlobalContext } from '../../GlobalContext/GlobalContext';
+import { decodeToken } from 'react-jwt';
 
 const Profile = () => {
   // const [info, setInfo] = useState<any>({});

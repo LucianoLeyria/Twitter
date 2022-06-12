@@ -1,11 +1,9 @@
 import './App.css';
-import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
-import { Home } from './components/Views/Home/Home';
-import Login from './components/Views/Login/Login';
-import Register from './components/Views/Register/Register';
-import Registerorlogin from './components/Views/Registerorlogin/Registerorlogin';
-import Favorites from './components/Views/Favorites/Favorites';
-import Profile from './components/Views/Profile/Profile';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Home } from './pages/Home/Home';
+import Registerorlogin from './pages/Registerorlogin/Registerorlogin';
+import Favorites from './pages/Favorites/Favorites';
+import Profile from './pages/Profile/Profile';
 
 function App() {
   return (
@@ -13,8 +11,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Registerorlogin />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/profile/:username" element={<Profile />} />
       </Routes>

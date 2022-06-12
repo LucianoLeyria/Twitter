@@ -1,12 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { LoginProps } from '../../Interfaces';
-import { login } from '../../Fetchs';
+import { login } from '../../services/Fetchs';
 import { useNavigate } from 'react-router-dom';
+import { GlobalContext } from '../../GlobalContext/GlobalContext';
+import { decodeToken, useJwt } from 'react-jwt';
 
 const Login = () => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
+  const { setUser } = useContext(GlobalContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.localStorage.getItem('token') ? navigate('/home') : null;
+  }, []);
 
   return (
     <>
@@ -20,9 +27,10 @@ const Login = () => {
 
           // Validacion nombre
           if (!valores.username) {
-            errores.username = 'Please enter a name';
+            errores.username = 'Por favor ingresa un nombre';
           } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.username)) {
-            errores.username = 'The name must contain only letters and spaces';
+            errores.username =
+              'El nombre solo puede contener letras y espacios';
           }
 
           // Validacion password

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { RegisterProps } from '../../Interfaces';
-import { register } from '../../Fetchs';
+import { register } from '../../services/Fetchs';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {

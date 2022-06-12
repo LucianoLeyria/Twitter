@@ -1,22 +1,17 @@
-<<<<<<< HEAD:src/components/Posts/Posts.tsx
 import { useContext, useEffect } from 'react';
-import { getPosts } from '../../Fetchs';
 import { IPosts } from '../../Interfaces';
 import Post from '../../components/Post/Post';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
-import { getPostsAllTime } from '../../Fetchs';
-=======
-import React, { useContext, useEffect } from 'react';
-import { getPosts, getPostsAllTime } from '../../../Fetchs';
-import { IPosts } from '../../../Interfaces';
-import styles from '../Posts/Posts.module.css';
-import Post from '../Post/Post';
-import { GlobalContext } from '../../../GlobalContext/GlobalContext';
-import Profile from '../Profile/Profile';
->>>>>>> main:src/components/Views/Posts/Posts.tsx
+import { getPosts, getPostsAllTime } from '../../services/Fetchs';
+import { useNavigate } from 'react-router-dom';
 
 const Posts = () => {
   const { posts, setPosts } = useContext(GlobalContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    !window.localStorage.getItem('token') ? navigate('/') : null;
+  }, []);
 
   useEffect(() => {
     const getAllPosts = async () => {
@@ -38,30 +33,8 @@ const Posts = () => {
   }, []);
   console.log('postenposts', posts);
   return (
-<<<<<<< HEAD:src/components/Posts/Posts.tsx
-    <div className="">
-      {posts?.length > 0 ? (
-        posts.map((p: IPosts) => {
-          const user = p.usuarioId;
-          console.log('userid', user);
-          return (
-            <div key={p._id}>
-              <Post
-                nombre={p.usuarioId.nombre}
-                contenido={p.contenido}
-                fecha={p.fecha}
-                avatar={p.usuarioId.avatar}
-              />
-            </div>
-          );
-        })
-      ) : (
-        <p>No se encuentran posts</p>
-      )}
-    </div>
-=======
     <>
-      <div className={styles.posts}>
+      <div>
         {posts?.length > 0 ? (
           posts.map((p: { post: IPosts; cantidadLikes: number }) => {
             return (
@@ -83,7 +56,6 @@ const Posts = () => {
         )}
       </div>
     </>
->>>>>>> main:src/components/Views/Posts/Posts.tsx
   );
 };
 

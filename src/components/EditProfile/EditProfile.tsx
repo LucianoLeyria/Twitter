@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styles from './EditProfile.module.css';
-import { editProfile, getInfoProfile } from '../../Fetchs';
+import { editProfile, getInfoProfile } from '../../services/Fetchs';
 import { useParams } from 'react-router-dom';
 
 const EditProfile = ({ user }: any) => {
@@ -31,62 +31,62 @@ const EditProfile = ({ user }: any) => {
 
   return (
     <div className={styles.container}>
-      <form encType='multipart/form-data' id='form' onSubmit={handleSubmit}>
+      <form encType="multipart/form-data" id="form" onSubmit={handleSubmit}>
         <div className={styles.portadaybutton}>
-          <img src={`${url}${profile.portada}`} alt='Portada' />
+          <img src={`${url}${profile.portada}`} alt="Portada" />
 
           <input
-            type='file'
-            name='portada'
-            id='portada'
+            type="file"
+            name="portada"
+            id="portada"
             onChange={handleChange}
             // value={profile.portada}
           />
-          <label htmlFor='portada'>📷</label>
+          <label htmlFor="portada">📷</label>
         </div>
         <div className={styles.perfilybutton}>
-          <img src={`${url}${profile.avatar}`} alt='Perfil' />
+          <img src={`${url}${profile.avatar}`} alt="Perfil" />
           <input
-            type='file'
-            id='avatar'
-            name='avatar'
+            type="file"
+            id="avatar"
+            name="avatar"
             onChange={handleChange}
             // value={profile.avatar}
           />
-          <label htmlFor='avatar'>📷</label>
+          <label htmlFor="avatar">📷</label>
         </div>
 
-        <label htmlFor='Nombre'>
+        <label htmlFor="Nombre">
           <p>Nombre</p>
           <input
-            type='text'
-            id='nombre'
-            name='nombre'
+            type="text"
+            id="nombre"
+            name="nombre"
             onChange={handleChange}
             value={profile.nombre}
           />
         </label>
-        <label htmlFor='Descripcion'>
+        <label htmlFor="Descripcion">
           <p>Descripción</p>
           <input
-            type='text'
-            id='descripcion'
-            name='descripcion'
+            type="text"
+            id="descripcion"
+            name="descripcion"
             onChange={handleChange}
             value={profile.descripcion}
           />
         </label>
-        <label htmlFor='Ubicacion'>
+        <label htmlFor="Ubicacion">
           <p>Ubicación</p>
           <input
-            type='text'
-            id='ubicacion'
-            name='ubicacion'
+            type="text"
+            id="ubicacion"
+            name="ubicacion"
             onChange={handleChange}
             value={profile.ubicacion}
           />
         </label>
-        <button type='submit'>Enviar</button>
+        <button type="submit">Enviar</button>
       </form>
     </div>
   );

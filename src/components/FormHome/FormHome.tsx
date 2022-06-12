@@ -1,7 +1,6 @@
 import { useContext, useState } from 'react';
 import { tweetPost, getPosts } from '../../services/Fetchs';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
-import styles from '../FormHome/FormHome.module.css';
 import Emojis from '../../components/Emojis/Emojis';
 
 const FormHome = () => {
@@ -39,7 +38,6 @@ const FormHome = () => {
           required
         />
         <input
-          className={styles.inputFile}
           type="file"
           name="image"
           onChange={handleChange}

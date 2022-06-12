@@ -1,8 +1,7 @@
 import { useEffect, useContext } from 'react';
 import { getFavsForUser } from '../../services/Fetchs';
-import styles from '../Favorites/Favorites.module.css';
-import Post from '../Post/Post';
-import Navbar from '../Navbar/Navbar';
+import Post from '../../components/Post/Post';
+import Navbar from '../../components/Navbar/Navbar';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import { Favoritos } from '../../Interfaces';
 
@@ -16,7 +15,7 @@ const Favorites = () => {
     getFavs();
   }, []);
   return (
-    <div className={styles.conteiner}>
+    <div>
       <Navbar />
       {favorites?.map((fav: { post: Favoritos; cantidadLikes: number }) => {
         return (

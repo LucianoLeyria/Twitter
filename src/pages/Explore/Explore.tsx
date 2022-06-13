@@ -3,6 +3,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import FormHome from '../../components/FormHome/FormHome';
 import Posts from '../../components/Posts/Posts';
 import { useNavigate } from 'react-router-dom';
+import { IPosts } from '../../../Interfaces';
 
 export const Home = () => {
   const navigate = useNavigate();

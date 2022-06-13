@@ -1,3 +1,4 @@
+<<<<<<< HEAD:src/components/Posts/Posts.tsx
 import { useContext, useEffect } from 'react';
 import { IPosts } from '../../Interfaces';
 import Post from '../../components/Post/Post';
@@ -12,9 +13,23 @@ const Posts = () => {
   useEffect(() => {
     !window.localStorage.getItem('token') ? navigate('/') : null;
   }, []);
+=======
+import React, { useContext, useEffect } from 'react';
+import { getPosts, getPostsAllTime } from '../../../Fetchs';
+import { IPosts } from '../../../Interfaces';
+import styles from '../Posts/Posts.module.css';
+import Post from '../Post/Post';
+import { GlobalContext } from '../../../GlobalContext/GlobalContext';
+
+import Loader from '../Loader/Loader';
+
+const Posts = () => {
+  const { posts, setPosts, loading, setLoading } = useContext(GlobalContext);
+>>>>>>> main:src/components/Views/Posts/Posts.tsx
 
   useEffect(() => {
     const getAllPosts = async () => {
+      console.log('algo', posts);
       const newPosts = await getPosts();
       setPosts(newPosts);
       setInterval(async () => {
@@ -27,11 +42,11 @@ const Posts = () => {
           const allData = [...aux2, ...newPosts];
           setPosts(allData);
         }
-      }, 5000);
+      }, 15000);
     };
     getAllPosts();
-  }, []);
-  console.log('postenposts', posts);
+  }, [loading]);
+
   return (
     <>
       <div>
@@ -52,7 +67,7 @@ const Posts = () => {
             );
           })
         ) : (
-          <p>No se encuentran posts</p>
+          <Loader />
         )}
       </div>
     </>

@@ -1,28 +1,40 @@
+<<<<<<< HEAD
 import { useState } from 'react';
 import styles from './EditProfile.module.css';
 import { editProfile, getInfoProfile } from '../../services/Fetchs';
 import { useParams } from 'react-router-dom';
+=======
+import { useEffect, useState, useContext } from 'react';
+import styles from './EditProfile.module.css';
+import { editProfile, getInfoProfile } from '../../Fetchs';
+>>>>>>> main
 
+import { GlobalContext } from '../../GlobalContext/GlobalContext';
 const EditProfile = ({ user }: any) => {
-  interface EditProps {
-    user: any;
-  }
-
   const url = import.meta.env.VITE_APP_URL;
-  const { id } = useParams();
+  const { setInfoUser, infoUser } = useContext(GlobalContext);
   const [profile, setProfile] = useState({
-    portada: user.portada,
-    avatar: user.avatar,
-    nombre: user.nombre,
-    descripcion: user.descripcion,
-    ubicacion: user.ubicacion,
+    portada: user?.portada,
+    avatar: user?.avatar,
+    nombre: user?.nombre,
+    descripcion: user?.descripcion,
+    ubicacion: user?.ubicacion,
   });
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    editProfile(profile);
-    getInfoProfile(id as string);
+    const updatedUser = await editProfile(profile);
+    // const perfil = await getInfoProfile(infoUser._id as string);
+    // console.log('PERFIL', perfil);
+    setInfoUser(updatedUser?.user);
+    window.localStorage.setItem('infoUser', JSON.stringify(updatedUser?.user));
+    console.log('updated', updatedUser);
+    alert('Actualizado con exito');
   };
+
+  useEffect(() => {
+    setInfoUser(getInfoProfile(infoUser._id as string));
+  }, [profile]);
 
   const handleChange = (e: any) => {
     setProfile((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -55,7 +67,43 @@ const EditProfile = ({ user }: any) => {
           />
           <label htmlFor="avatar">📷</label>
         </div>
+        <div className={styles.inputsmalos}>
+          <label htmlFor='Nombre'>
+            <p>Nombre</p>
+            <input
+              required
+              type='text'
+              id='nombre'
+              name='nombre'
+              onChange={handleChange}
+              value={profile.nombre}
+            />
+          </label>
+          <label htmlFor='Descripcion'>
+            <p>Descripción</p>
+            <input
+              required
+              type='text'
+              id='descripcion'
+              name='descripcion'
+              onChange={handleChange}
+              value={profile.descripcion}
+            />
+          </label>
+          <label htmlFor='Ubicacion'>
+            <p>Ubicación</p>
+            <input
+              required
+              type='text'
+              id='ubicacion'
+              name='ubicacion'
+              onChange={handleChange}
+              value={profile.ubicacion}
+            />
+          </label>
+        </div>
 
+<<<<<<< HEAD
         <label htmlFor="Nombre">
           <p>Nombre</p>
           <input
@@ -87,6 +135,16 @@ const EditProfile = ({ user }: any) => {
           />
         </label>
         <button type="submit">Enviar</button>
+=======
+        <button
+          type='submit'
+          disabled={
+            !profile.nombre || !profile.descripcion || !profile.ubicacion
+          }
+        >
+          Enviar
+        </button>
+>>>>>>> main
       </form>
     </div>
   );

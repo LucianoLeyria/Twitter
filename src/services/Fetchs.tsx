@@ -11,7 +11,7 @@ export const login = async (datosLogin: LoginProps) => {
   });
   const token = await res.json();
   if (token.token) window.localStorage.setItem('token', token.token);
-  console.log('token?', token);
+  console.log('respuestalogin?', token);
   return token;
 };
 
@@ -153,8 +153,15 @@ export const getInfoProfile = async (nombre: string) => {
 
 export const editProfile = async (profile: any) => {
   let data = new FormData();
-  data.append('avatar', document.getElementById('avatar').files[0]);
-  data.append('portada', document.getElementById('portada').files[0]);
+  if (document.getElementById('avatar').files[0]) {
+    data.append('avatar', document.getElementById('avatar').files[0]);
+  }
+  console.log('QUEESESTO', document.getElementById('avatar').files[0]);
+
+  if (document.getElementById('portada').files[0]) {
+    data.append('portada', document.getElementById('portada').files[0]);
+  }
+
   data.append('nombre', profile.nombre);
   data.append('descripcion', profile.descripcion);
   data.append('ubicacion', profile.ubicacion);
@@ -169,4 +176,17 @@ export const editProfile = async (profile: any) => {
   const profileRes = await res.json();
   console.log('resp?????', profileRes);
   return profileRes;
+};
+
+export const viewMyTweets = async (id: string) => {
+  const url = import.meta.env.VITE_APP_URL;
+  let res = await fetch(`${url}` + '/posts/userTweets/' + id, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const userPosts = await res.json();
+  console.log('userposts', userPosts);
+  return userPosts;
 };
